@@ -2,6 +2,7 @@
 
 # Парсим анекдоты с сайта
 # Видео в You Tube от Хауди-Хо "Парсинг в Python за 10 минут!"
+# Парсит анекдоты со страницы и выводит в виде списка строк
 
 import requests
 from bs4 import BeautifulSoup as BS
@@ -15,12 +16,20 @@ fun = html.select(" div > div.holder-body > p")
 
 # чистим текст строки и формируем анекдот
 def clean_text(text):
-    joke = str(text)
-    while '<' in joke:
-        joke = joke[:joke.find('<')] + joke[joke.find('>') + 1:]
-    return joke
+    """
+    Удаляем все символы в спарсенном тексте между скобками < и >
+    :param text: вводим текст
+    :return: чистый текст
+    """
+    crean_text = str(text)
+    while '<' in crean_text:
+        crean_text = crean_text[:crean_text.find('<')] + crean_text[crean_text.find('>') + 1:]
+    return crean_text
 
 
-s = str(fun[0])
-s = clean_text(s)
-print(s)
+# Очищеная страница
+jokes = []
+for joke in fun:
+    jokes.append(clean_text(joke))
+
+print(jokes)
