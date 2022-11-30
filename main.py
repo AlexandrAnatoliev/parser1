@@ -16,7 +16,7 @@ fun = html.select(" div > div.holder-body > p")
 # чистим текст строки и формируем анекдот
 def clean_text(text):
     joke = str(text)
-    if '<' in joke:
+    while '<' in joke:
         joke = joke[:joke.find('<')] + joke[joke.find('>') + 1:]
     return joke
 
