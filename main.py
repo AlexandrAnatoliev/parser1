@@ -9,6 +9,18 @@ from bs4 import BeautifulSoup as BS
 r = requests.get("https://anekdoty.ru/samye-smeshnye/")
 html = BS(r.content, 'html.parser')
 
-# Выводит все анекдоты со страницы (с мусором)
+# Скачиваем все анекдоты со страницы (с мусором)
 fun = html.select(" div > div.holder-body > p")
-print(fun)
+
+
+# чистим текст строки и формируем анекдот
+def clean_text(text):
+    joke = str(text)
+    if '<' in joke:
+        joke = joke[:joke.find('<')] + joke[joke.find('>') + 1:]
+    return joke
+
+
+s = str(fun[0])
+s = clean_text(s)
+print(s)
